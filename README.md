@@ -1,7 +1,9 @@
 ## DeepLearning From Scratch
 
-Chapter1: Python Basics
+Chapter 1: Python Basics
 
-Chapter2: Perceptrons
+Chapter 2: Perceptrons
 
-Chapter3: Neural Networks
+Chapter 3: Neural Networks
+
+Chapter 4: Training Networks
