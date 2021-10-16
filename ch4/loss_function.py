@@ -8,8 +8,20 @@ def sum_squares_error(y, t):
 
 # Cross Entrophy Error (CEE)
 def cross_entrophy_error(y, t):
-    delta = 1e-7
-    return -np.sum(t * np.log(y + delta))
+    if y.ndim == 1:
+        t = t.reshape(1, t.size)
+        y = y.reshape(1, y.size)
+      
+    batch_size = y.shape[0]
+    return -np.sum(t * np.log(y + 1e-7)) / batch_size
+
+def cross_entrophy_error_with_label(y, t):
+    if y.ndim == 1:
+      t = t.reshape(1, t.size)
+      y = y.reshape(1, y.size)
+    
+    batch_size = y.shape[0]
+    return -np.sum(np.log(y[np.arange(batch_size, t)]))
 
 
 t = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
