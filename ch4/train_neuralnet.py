@@ -11,7 +11,7 @@ from three_layer_net import ThreeLayerNet
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
 
 # network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
-network = ThreeLayerNet(input_size=784, hidden_size_1=20, hidden_size_2=20, output_size=10)
+network = ThreeLayerNet(input_size=784, hidden_size_1=100, hidden_size_2=50, output_size=10)
 
 # 하이퍼파라미터
 iters_num = 10000  # 반복 횟수를 적절히 설정한다.
