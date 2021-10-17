@@ -41,7 +41,7 @@ class ThreeLayerNet:
     def accuracy(self, x, t):
         y = self.predict(x)
         y = np.argmax(y, axis=1)
-        t = np.argmax(y, axis=1)
+        t = np.argmax(t, axis=1)
 
         return np.sum(y == t) / float(x.shape[0])
 
