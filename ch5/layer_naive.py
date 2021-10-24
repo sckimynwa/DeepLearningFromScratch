@@ -16,23 +16,44 @@ class MulLayer:
 
     return dx, dy
 
+class AddLayer:
+  def __init__(self):
+    pass
+
+  def forward(self, x, y):
+    return x + y
+
+  def backward(dout):
+    dx = dout * 1
+    dy = dout * 1
+    return dx, dy
+
+# Examples
 apple = 100
 apple_num = 2
+orange = 150
+orange_num = 3
 tax = 1.1
 
 # Layers
 mul_apple_layer = MulLayer()
+mul_orange_layer = MulLayer()
+add_apple_orange_layer = MulLayer()
 mul_tax_layer = MulLayer()
 
 # Forward Propagation
 apple_price = mul_apple_layer.forward(apple, apple_num)
-price = mul_tax_layer.forward(apple_price, tax)
+orange_price = mul_orange_layer.forward(orange, orange_num)
+all_price = add_apple_orange_layer.forward(apple_price, orange_price)
+price = mul_tax_layer.forward(all_price, tax)
 
 print(price)
 
 # Backward Propagation
 dprice = 1
-dapple_price, dtax = mul_tax_layer.backward(dprice)
+dall_price, dtax = mul_tax_layer.backward(dprice)
+dapple_price, dorange_price = add_apple_orange_layer.backward(dall_price)
 dapple, dapple_num = mul_apple_layer.backward(dapple_price)
+dorange, dorange_num = mul_orange_layer.backward(dorange_price)
 
-print(dapple, dapple_num, dtax)
+print(dprice, dall_price, dtax, dapple_price, dorange_price, dapple_price, dapple_num, dorange_price, dorange_num)
