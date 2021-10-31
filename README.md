@@ -21,3 +21,5 @@ Chapter 8: DeepLearning
 ### Book2
 
 Chapter 1: Network Review
+
+Chapter 2: NLP Basics
