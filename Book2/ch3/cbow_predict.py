@@ -24,3 +24,7 @@ target = convert_one_hot(target, vocab_size=vocab_size)
 contexts = convert_one_hot(contexts, vocab_size=vocab_size)
 print(contexts)
 print(target)
+
+print('test')
+print(contexts.ndim)
+print(contexts[:, 0].ndim)
