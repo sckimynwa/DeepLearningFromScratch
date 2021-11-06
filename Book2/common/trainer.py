@@ -25,7 +25,6 @@ class Trainer:
 
         start_time = time.time()
         for epoch in range(max_epoch):
-            # シャッフル
             idx = numpy.random.permutation(numpy.arange(data_size))
             x = x[idx]
             t = t[idx]
@@ -34,7 +33,6 @@ class Trainer:
                 batch_x = x[iters*batch_size:(iters+1)*batch_size]
                 batch_t = t[iters*batch_size:(iters+1)*batch_size]
 
-                # 勾配を求め、パラメータを更新
                 loss = model.forward(batch_x, batch_t)
                 model.backward()
                 params, grads = remove_duplicate(model.params, model.grads)  # 共有された重みを1つに集約
@@ -44,7 +42,6 @@ class Trainer:
                 total_loss += loss
                 loss_count += 1
 
-                # 評価
                 if (eval_interval is not None) and (iters % eval_interval) == 0:
                     avg_loss = total_loss / loss_count
                     elapsed_time = time.time() - start_time
@@ -105,7 +102,6 @@ class RnnlmTrainer:
             for iters in range(max_iters):
                 batch_x, batch_t = self.get_batch(xs, ts, batch_size, time_size)
 
-                # 勾配を求め、パラメータを更新
                 loss = model.forward(batch_x, batch_t)
                 model.backward()
                 params, grads = remove_duplicate(model.params, model.grads)  # 共有された重みを1つに集約
@@ -115,7 +111,6 @@ class RnnlmTrainer:
                 total_loss += loss
                 loss_count += 1
 
-                # パープレキシティの評価
                 if (eval_interval is not None) and (iters % eval_interval) == 0:
                     ppl = np.exp(total_loss / loss_count)
                     elapsed_time = time.time() - start_time
@@ -148,13 +143,13 @@ def remove_duplicate(params, grads):
 
         for i in range(0, L - 1):
             for j in range(i + 1, L):
-                # 重みを共有する場合
+                
                 if params[i] is params[j]:
-                    grads[i] += grads[j]  # 勾配の加算
+                    grads[i] += grads[j] 
                     find_flg = True
                     params.pop(j)
                     grads.pop(j)
-                # 転置行列として重みを共有する場合（weight tying）
+
                 elif params[i].ndim == 2 and params[j].ndim == 2 and \
                      params[i].T.shape == params[j].shape and np.all(params[i].T == params[j]):
                     grads[i] += grads[j].T
